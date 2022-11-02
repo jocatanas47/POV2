@@ -102,6 +102,8 @@ disp(err2);
 
 x = -5:0.1:12;
 y = -5:0.1:12;
+f1 = zeros(length(x), length(y));
+f2 = zeros(length(x), length(y));
 const1 = 1/(2*pi*det(S1))^0.5;
 const2 = 1/(2*pi*det(S2))^0.5;
 const3 = 1/(2*pi*det(S3))^0.5;
@@ -111,15 +113,15 @@ e2 = 0;
 for i = 1:length(x)
     for j = 1:length(y)
         X = [x(i) y(j)]';
-        f1 = const1*exp(-0.5*(X - M1)'*inv(S1)*(X - M1));
+        f1(i, j) = const1*exp(-0.5*(X - M1)'*inv(S1)*(X - M1));
         f21 = const2*exp(-0.5*(X - M2)'*inv(S2)*(X - M2));
         f22 = const3*exp(-0.5*(X - M3)'*inv(S3)*(X - M3));
-        f2 = 0.6*f21 + 0.4*f22;
-        h = -log(f1/f2);
+        f2(i, j) = 0.6*f21 + 0.4*f22;
+        h = -log(f1(i, j)/f2(i, j));
         if (h < 0) % u oblasti L1
-            e2 = e2 + 0.1*0.1*f2;
+            e2 = e2 + 0.1*0.1*f2(i, j);
         else % u oblasti L2
-            e1 = e1 + 0.1*0.1*f1;
+            e1 = e1 + 0.1*0.1*f1(i, j);
         end
     end
 end
@@ -127,7 +129,7 @@ end
 disp(e1);
 disp(e2);
 
-% sa realnim podacima - podatke j eona sredila sa proslog casa
+% sa realnim podacima - podatke je ona sredila sa proslog casa
 
 load('Slova_obelezja.mat');
 figure(3);
