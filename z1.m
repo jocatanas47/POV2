@@ -98,7 +98,7 @@ disp(err1);
 disp(err2);
 
 % procena greske klasifikacije - teorijski pristup
-% ne radi ne znam zasto
+% ne radi ne znam zasto - sad radi
 
 x = -5:0.1:12;
 y = -5:0.1:12;
